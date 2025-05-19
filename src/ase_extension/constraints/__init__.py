@@ -1,9 +1,13 @@
 from ase import constraints
 
+from .bias import RMSDBiasPotential
+from .confine import ConfineSphere
 from .fix import FixBondLengths
 
 __all__ = [
+    "ConfineSphere",
     "FixBondLengths",
+    "RMSDBiasPotential",
 ]
 
 
