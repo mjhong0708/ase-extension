@@ -1,6 +1,5 @@
 mod constraints;
 mod geometry;
-mod submodule;
 
 use pyo3::prelude::*;
 
