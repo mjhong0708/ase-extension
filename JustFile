@@ -30,6 +30,9 @@ check:
     cargo clippy
     cargo check
 
+build:
+    uv build -C release=True
+
 test:
     pytest
     cargo test
