@@ -194,3 +194,4 @@ target/
 *.lock
 
 dev
+*.DS_Store
