@@ -56,6 +56,7 @@ ignore = [
     "FBT002",  # Boolean keyword argument in function
     "PLR",     # pylint refactor
     "SIM108",  # using ternary operator in simple if-else statement
+    "SIM103",
     "PLW2901", # Outer for loop variable overwritten by inner assignment target
     "PT006",   # pytest-parametrize-names-wrong-type
     "PT011",   # pytest-raises-too-broad

@@ -7,6 +7,7 @@ requires-python = ">=3.9"
 dependencies = [
     "ase>=3.24.0",
     "numpy>=1.26.0",
+    "typing-extensions>=4.13.2",
     "vesin",
 ]
 
