@@ -39,7 +39,7 @@ jobs:
       - name: Upload build results
         uses: actions/upload-artifact@v4
         with:
-          name: builds
+          name: builds-${{ matrix.python-version }}
           path: dist/*
 
       - name: Create Release
