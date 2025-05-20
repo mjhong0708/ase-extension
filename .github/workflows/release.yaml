@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   release:
-    runs-on: $$ { matrix.runner }
+    runs-on: ${{ matrix.runner }}
     if: github.repository == 'mjhong0708/ase-extension' && startsWith(github.ref, 'refs/tags/v')
     strategy:
       matrix:
