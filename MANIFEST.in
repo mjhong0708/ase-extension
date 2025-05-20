@@ -1,6 +1,5 @@
 graft src
 graft tests
-include Cargo.toml build.rs
+include Cargo.toml
 global-exclude */__pycache__/*
 global-exclude *.pyc
-prune *.so
