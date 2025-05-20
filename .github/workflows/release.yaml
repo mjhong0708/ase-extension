@@ -34,19 +34,24 @@ jobs:
       - name: Setup project
         run: uv sync
 
-      - name: Build distributions
-        run: uv build -C release=True
+      - name: Install cibuildwheel
+        run: uv pip install cibuildwheel==3.0.0b1
+
+      - name: Build wheels
+        run: |
+          source .venv/bin/activate
+          python -m cibuildwheel --output-dir wheelhouse
 
       - name: Upload build results
         uses: actions/upload-artifact@v4
         with:
-          name: builds-${{ matrix.runner }}-${{ matrix.python-version }}
-          path: dist/*
+          name: builds
+          path: wheelhouse/*
 
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "dist/*"
+          artifacts: "wheelhouse/*"
           draft: false
           token: ${{ secrets.GITHUB_TOKEN }}
           skipIfReleaseExists: false
