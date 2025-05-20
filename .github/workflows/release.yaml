@@ -36,10 +36,17 @@ jobs:
       - name: Build distributions
         run: uv build
 
+      - name: Upload build results
+        uses: actions/upload-artifact@v4
+        with:
+          name: builds
+          path: dist/*
+
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
           artifacts: "dist/*"
           draft: false
           token: ${{ secrets.GITHUB_TOKEN }}
-          skipIfReleaseExists: true
+          skipIfReleaseExists: false
+          allowUpdates: true
