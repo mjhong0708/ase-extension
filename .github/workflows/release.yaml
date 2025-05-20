@@ -1,0 +1,43 @@
+name: Release on tag
+
+on:
+  push:
+    tags:
+      # After vMajor.Minor.Patch _anything_ is allowed (without "/") !
+      - v[0-9]+.[0-9]+.[0-9]+*
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: github.repository == 'mjhong0708/ase-extension' && startsWith(github.ref, 'refs/tags/v')
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+      with:
+        version: "0.7.6"
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install Python
+      run: uv python install
+
+    - name: Setup project
+      run: uv sync
+
+    - name: Build distributions
+      run: uv build
+
+    - name: Create Release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "dist/*"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        draft: false
+        skipIfReleaseExists: true
