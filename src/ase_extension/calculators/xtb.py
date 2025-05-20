@@ -7,6 +7,19 @@ from ase import units
 from ase.calculators.calculator import FileIOCalculator
 
 
+def _check_xtb_installed(cmd: str):
+    """Check if XTB is installed and available in the system path."""
+    try:
+        import subprocess
+
+        _ = subprocess.run([cmd.split()[0], "--version"], capture_output=True, text=True, check=True)
+
+    except FileNotFoundError as e:
+        raise RuntimeError(
+            "XTB is not installed or not found in the system path. Please install XTB and ensure it is accessible."
+        ) from e
+
+
 def is_debug():
     return os.environ.get("DEBUG", "").lower() in ["1", "true"]
 
