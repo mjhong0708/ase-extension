@@ -34,5 +34,19 @@ build:
     uv build -C release=True
 
 test:
-    pytest
-    cargo test
+    @echo "=================================================="
+    @echo "               Running pytest                     "
+    @echo "=================================================="
+    pytest tests/python
+    @echo "=================================================="
+    @echo "               Finished pytest                    "
+    @echo "=================================================="
+
+    @echo "=================================================="
+    @echo "              Running cargo test                  "
+    @echo "=================================================="
+    cargo test --package ext
+    cargo test --package ext --test integration_test
+    @echo "=================================================="
+    @echo "              Finished cargo test                 "
+    @echo "=================================================="

@@ -10,6 +10,14 @@ from ase import Atoms
 from ase.units import mol
 
 
+def _check_packmol_installed() -> None:
+    """Check if Packmol is installed."""
+    try:
+        subprocess.run(["packmol", "--version"], capture_output=True, check=True)
+    except subprocess.CalledProcessError as e:
+        raise RuntimeError("Packmol is not installed or not found in PATH. Please install it first.") from e
+
+
 class PackMol:
     """Main class for interfacing with Packmol."""
 
@@ -20,6 +28,7 @@ class PackMol:
         box: tuple[float, float, float] | None = None,
         pbc: bool = False,
     ):
+        _check_packmol_installed()
         self.tolerance = tolerance
         self.seed = seed
         self.box = box

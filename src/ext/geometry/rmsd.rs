@@ -101,3 +101,19 @@ pub fn compute_rmsd<'py>(
             .unbind(),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_subtract_centroid() {
+        let pos = MatrixXx3::from_row_slice(&[
+            0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 2.0, 2.0, 2.0, 3.0, 3.0, 3.0,
+        ]);
+        let pos_centered = subtract_centroid(pos);
+        let centroid = pos_centered.row_mean();
+
+        assert_eq!(centroid, MatrixXx3::from_row_slice(&[0.0, 0.0, 0.0]));
+    }
+}
