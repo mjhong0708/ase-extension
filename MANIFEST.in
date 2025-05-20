@@ -3,3 +3,4 @@ graft tests
 include Cargo.toml build.rs
 global-exclude */__pycache__/*
 global-exclude *.pyc
+prune *.so
