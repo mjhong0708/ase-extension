@@ -13,8 +13,8 @@ from ase.units import mol
 def _check_packmol_installed() -> None:
     """Check if Packmol is installed."""
     try:
-        subprocess.run(["packmol", "--version"], capture_output=True, check=True)
-    except subprocess.CalledProcessError as e:
+        subprocess.run(["packmol"], input="", check=False, capture_output=True)
+    except FileNotFoundError as e:
         raise RuntimeError("Packmol is not installed or not found in PATH. Please install it first.") from e
 
 
