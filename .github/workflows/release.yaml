@@ -50,7 +50,7 @@ jobs:
       - name: Upload build results
         uses: actions/upload-artifact@v4
         with:
-          name: builds
+          name: builds-${{ matrix.runner }}
           path: wheelhouse/*
 
       - name: Create Release
