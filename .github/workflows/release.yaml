@@ -35,7 +35,7 @@ jobs:
         run: uv sync
 
       - name: Install cibuildwheel
-        run: uv pip install cibuildwheel==3.0.0b1
+        run: uv pip install cibuildwheel
 
       - name: Build wheels
         run: |
