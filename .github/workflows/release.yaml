@@ -34,7 +34,7 @@ jobs:
         run: uv sync
 
       - name: Build distributions
-        run: uv build -c release=True
+        run: uv build -C release=True
 
       - name: Upload build results
         uses: actions/upload-artifact@v4
