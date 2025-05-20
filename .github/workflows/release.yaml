@@ -6,6 +6,12 @@ on:
       # After vMajor.Minor.Patch _anything_ is allowed (without "/") !
       - v[0-9]+.[0-9]+.[0-9]+*
 
+env:
+  CIBW_BEFORE_ALL_LINUX: curl -sSf https://sh.rustup.rs | sh -s -- -y
+  CIBW_BEFORE_ALL_WINDOWS: rustup target add i686-pc-windows-msvc
+  CIBW_ENVIRONMENT_LINUX: "PATH=$HOME/.cargo/bin:$PATH"
+
+
 permissions:
   contents: write
 
@@ -20,9 +26,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Install rustup
-        run: curl --tlsv1.2 -sSf https://sh.rustup.rs -o ~/rust-installer/rustup.sh
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
