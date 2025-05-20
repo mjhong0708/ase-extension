@@ -21,6 +21,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install rustup
+        run: curl --tlsv1.2 -sSf https://sh.rustup.rs -o ~/rust-installer/rustup.sh
+
       - name: Install uv
         uses: astral-sh/setup-uv@v5
         with:
