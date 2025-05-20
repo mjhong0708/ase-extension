@@ -83,7 +83,7 @@ pub fn compute_rmsd<'py>(
     let U = q.to_rotation_matrix();
 
     // 3. Rotate Y and compute RMSD
-    let Y_rot = &Y * &U;
+    let Y_rot = &Y * U;
     let rmsd_val = rmsd(&X, &Y_rot);
 
     // 4. Compute gradient
@@ -95,7 +95,7 @@ pub fn compute_rmsd<'py>(
         val: rmsd_val,
         grad: rmsd_grad.to_pyarray(_py).to_owned().unbind(),
         rotation: U.matrix().transpose().to_owned().to_pyarray(_py).unbind(),
-        translation: (X.row_mean() - Y.row_mean() * &U)
+        translation: (X.row_mean() - Y.row_mean() * U)
             .to_pyarray(_py)
             .to_owned()
             .unbind(),

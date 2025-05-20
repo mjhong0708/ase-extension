@@ -1,10 +1,11 @@
 #![allow(non_snake_case)]
+#![allow(clippy::upper_case_acronyms)]
 use nalgebra::{Matrix3, RowVector3};
 use numpy::{PyArray2, PyReadonlyArray1, PyReadonlyArray2, ToPyArray};
 use pyo3::{prelude::*, types::PyDict};
 use std::ops::AddAssign;
 
-fn finc_mic(dr: &RowVector3<f64>, cell: &Matrix3<f64>, pbc: &[bool; 3]) -> RowVector3<f64> {
+fn finc_mic(dR: &RowVector3<f64>, cell: &Matrix3<f64>, pbc: &[bool; 3]) -> RowVector3<f64> {
     let mut inv_cell = cell.try_inverse().unwrap_or(Matrix3::zeros());
     // Mask nonperiodic directions
     pbc.iter()
@@ -13,8 +14,8 @@ fn finc_mic(dr: &RowVector3<f64>, cell: &Matrix3<f64>, pbc: &[bool; 3]) -> RowVe
         .for_each(|(i, _)| {
             inv_cell.row_mut(i).scale_mut(0.0);
         });
-    let offset = (dr * inv_cell).map(|x| x.round()) * cell;
-    dr - offset
+    let offset = (dR * inv_cell).map(|x| x.round()) * cell;
+    dR - offset
 }
 
 #[pyclass]
@@ -159,7 +160,7 @@ impl SHAKE {
         Ok(momenta.to_pyarray(_py))
     }
 
-    pub fn __deepcopy__<'py>(&self, _memo: Py<PyDict>) -> Self {
+    pub fn __deepcopy__(&self, _memo: Py<PyDict>) -> Self {
         self.clone()
     }
 }
